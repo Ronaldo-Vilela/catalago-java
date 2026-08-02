@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<nav th:fragment="menu" class="navbar navbar-expand-lg navbar-light navbar-modern mb-5 shadow-sm">
+    <div class="container">
+      <a class="navbar-brand text-indigo d-flex align-items-center gap-2" th:href="@{/produto}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-box-seam" viewBox="0 0 16 16">
+          <path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5l2.404.961L10.404 2zm3.564 1.426L5.596 5 8 5.961 14.154 3.5zm3.25 1.7-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.84L1 4.239v7.923zM2.668 4.1c1.32-.476 3.09-1.071 4.332-1.503z"/>
+        </svg>
+        AdminPanel
+      </a>
+      <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 fw-medium">
+          <li class="nav-item">
+            <a class="nav-link text-warning fw-bold d-flex align-items-center ms-2 bg-dark rounded px-3" th:href="@{/loja}" target="_blank" style="font-size: 0.9em;">
+               <span class="me-1">🌐</span> Visitar Vitrine
+            </a>
+          </li>
+          <li class="nav-item ms-lg-3">
+            <a class="nav-link px-3" th:href="@{/produto}">Produtos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link px-3" th:href="@{/categoria}">Categorias</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link px-3" th:href="@{/usuario}">Usuários</a>
+          </li>
+        </ul>
+        <div class="d-flex align-items-center mt-3 mt-lg-0">
+          <div th:if="${session.usuario_nome != null}" class="d-flex align-items-center bg-light rounded-pill px-3 py-1 me-3 border">
+              <div class="rounded-circle bg-indigo text-white d-flex align-items-center justify-content-center fw-bold me-2" style="width: 28px; height: 28px; font-size: 12px;" th:text="${#strings.substring(session.usuario_nome, 0, 1)}">
+              </div>
+              <span class="text-dark fw-medium" style="font-size: 0.9rem;" th:text="${session.usuario_nome}">
+              </span>
+          </div>
+          <a class="btn btn-outline-danger btn-sm px-3 fw-bold rounded-pill" th:href="@{/usuario/logout}">Sair</a>
+        </div>
+      </div>
+    </div>
+</nav>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{template_header :: head('Usuários')}"></head>
+<body>
+<div th:replace="~{template_menu1 :: menu}"></div>
+
+<div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-0 text-dark">👥 Usuários</h2>
+            <p class="text-muted mb-0">Gerencie os acessos do sistema.</p>
+        </div>
+        <a th:href="@{/usuario/adicionar}" class="btn btn-indigo shadow-sm d-flex align-items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
+              <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+              <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+            </svg>
+            Novo Usuário
+        </a>
+    </div>
+    
+    <div class="card card-modern">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-modern mb-0">
+                    <thead class="bg-light">
+                        <tr>
+                            <th class="ps-4">Nome Pessoal</th>
+                            <th>Nível de Acesso</th>
+                            <th>Login</th>
+                            <th class="text-end pe-4">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="usuario : ${usuarios}">
+                            <td class="ps-4 fw-medium text-dark">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="rounded-circle bg-indigo text-white d-flex align-items-center justify-content-center fw-bold" style="width: 32px; height: 32px; font-size: 14px;" th:text="${#strings.substring(usuario.nome, 0, 1)}">
+                                    </div>
+                                    <span th:text="${usuario.nome}"></span>
+                                </div>
+                            </td>
+                            <td>
+                                <span th:if="${usuario.nivelAcesso == 'Administrador'}" class="badge bg-danger">Admin</span>
+                                <span th:unless="${usuario.nivelAcesso == 'Administrador'}" class="badge bg-secondary" th:text="${usuario.nivelAcesso}"></span>
+                            </td>
+                            <td class="text-muted" th:text="${usuario.login}"></td>
+                            <td class="text-end pe-4">
+                                <a th:href="@{/usuario/editar(id=${usuario.idusuario})}" class="btn btn-sm btn-outline-primary fw-medium rounded-pill px-3">Editar</a>
+                                <a th:href="@{/usuario/excluir(id=${usuario.idusuario})}" class="btn btn-sm btn-outline-danger fw-medium rounded-pill px-3 ms-1" onclick="return confirm('Tem certeza que deseja excluir?');">Excluir</a>
+                            </td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(usuarios)}">
+                            <td colspan="4" class="text-center py-4 text-muted">Nenhum usuário cadastrado.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{template_rodape :: rodape}"></div>
+</body>
+</html>

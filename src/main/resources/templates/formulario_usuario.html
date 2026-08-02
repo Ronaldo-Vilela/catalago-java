@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{template_header :: head('Cadastro de Usuário')}"></head>
+<body>
+<div th:replace="~{template_menu1 :: menu}"></div>
+
+<div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-0 text-dark">👥 Cadastro de Usuário</h2>
+            <p class="text-muted mb-0">Crie ou edite credenciais de acesso.</p>
+        </div>
+        <a th:href="@{/usuario}" class="btn btn-light shadow-sm border text-dark fw-medium rounded-pill px-4">Voltar</a>
+    </div>
+    
+    <div th:if="${erros_validacao != null and !erros_validacao.isEmpty()}" class="alert alert-danger shadow-sm border-0 mb-4 rounded-3 d-flex align-items-center">
+        ⚠️ <span class="ms-2 fw-medium" th:utext="${erros_validacao}"></span>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card card-modern">
+                <div class="card-body p-4 p-md-5">
+                   <form method="post" th:action="@{/usuario/salvar}">
+                    
+                    <div class="row">
+                        <div class="col-md-7 mb-4">
+                          <label for="nome" class="form-label fw-medium text-dark">Nome Completo</label>
+                          <input type="text" name="nome" id="nome" class="form-control form-control-lg bg-light border-0 shadow-none" th:value="${usuario != null ? usuario.nome : ''}" required>
+                        </div>
+                        <div class="col-md-5 mb-4">
+                          <label for="nivel_acesso" class="form-label fw-medium text-dark">Nível de acesso</label>
+                          <select name="nivelAcesso" id="nivel_acesso" class="form-select form-select-lg bg-light border-0 shadow-none">
+                            <option value="Administrador" th:selected="${usuario != null and usuario.nivelAcesso == 'Administrador'}">Administrador</option>
+                            <option value="Colaborador" th:selected="${usuario != null and usuario.nivelAcesso == 'Colaborador'}">Colaborador</option>
+                            <option value="Cliente" th:selected="${usuario != null and usuario.nivelAcesso == 'Cliente'}">Cliente</option>
+                          </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                      <label for="login" class="form-label fw-medium text-dark">Nome de Login</label>
+                      <input type="text" name="login" id="login" class="form-control form-control-lg bg-light border-0 shadow-none" th:value="${usuario != null ? usuario.login : ''}" required>
+                    </div>
+
+                    <div class="row border-top pt-4 mt-2">
+                        <div class="col-md-6 mb-4">
+                          <label for="senha" class="form-label fw-medium text-dark">Senha de Acesso <span th:if="${usuario != null}" class='text-muted' style='font-size:0.8em;'>(Deixe em branco para manter a atual)</span></label>
+                          <input type="password" name="senha" id="senha" class="form-control form-control-lg bg-light border-0 shadow-none" th:required="${usuario == null}">
+                        </div>
+                        <div class="col-md-6 mb-5">
+                          <label for="confirma_senha" class="form-label fw-medium text-dark">Confirme a Senha</label>
+                          <input type="password" name="confirma_senha" id="confirma_senha" class="form-control form-control-lg bg-light border-0 shadow-none" th:required="${usuario == null}">
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="idusuario" th:value="${usuario != null ? usuario.idusuario : ''}">
+                    <div class="d-flex justify-content-end bg-light p-3 rounded-3 mt-2">
+                        <button type="submit" class="btn btn-indigo btn-lg px-5 shadow-sm rounded-pill">Salvar Usuário</button>
+                    </div>
+                  </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{template_rodape :: rodape}"></div>
+</body>
+</html>

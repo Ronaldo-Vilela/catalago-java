@@ -1,0 +1,13 @@
+com\alura\catalago\controller\LojaController.class
+com\alura\catalago\repository\CategoriaRepository.class
+com\alura\catalago\config\WebConfig.class
+com\alura\catalago\controller\UsuarioController.class
+com\alura\catalago\CatalagoApplication.class
+com\alura\catalago\repository\ProdutoRepository.class
+com\alura\catalago\model\Categoria.class
+com\alura\catalago\controller\ProdutoController.class
+com\alura\catalago\model\Usuario.class
+com\alura\catalago\controller\CategoriaController.class
+com\alura\catalago\repository\UsuarioRepository.class
+com\alura\catalago\config\AuthInterceptor.class
+com\alura\catalago\model\Produto.class

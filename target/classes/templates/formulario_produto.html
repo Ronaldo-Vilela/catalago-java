@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{template_header :: head('Produto')}"></head>
+<body>
+<div th:replace="~{template_menu1 :: menu}"></div>
+
+<div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-0 text-dark">📦 Produto</h2>
+            <p class="text-muted mb-0">Adicione ou edite os detalhes do produto.</p>
+        </div>
+        <a th:href="@{/produto}" class="btn btn-light shadow-sm border text-dark fw-medium rounded-pill px-4">Voltar</a>
+    </div>
+    
+    <div class="card card-modern">
+        <div class="card-body p-4 p-md-5">
+            <form method="post" th:action="@{/produto/salvar}" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <label for="nome" class="form-label fw-medium text-dark">Nome do Produto</label>
+                        <input type="text" name="nome" id="nome" class="form-control form-control-lg bg-light border-0 shadow-none" th:value="${produto != null ? produto.nome : ''}" required>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <label for="marca" class="form-label fw-medium text-dark">Marca</label>
+                        <input type="text" name="marca" id="marca" class="form-control form-control-lg bg-light border-0 shadow-none" th:value="${produto != null ? produto.marca : ''}">
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="descricao" class="form-label fw-medium text-dark">Descrição Completa</label>
+                    <textarea name="descricao" id="descricao" rows="4" class="form-control bg-light border-0 shadow-none" th:text="${produto != null ? produto.descricao : ''}"></textarea>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <label for="preco" class="form-label fw-medium text-dark">Preço de Venda (R$)</label>
+                        <input type="number" step="any" name="preco" id="preco" class="form-control form-control-lg bg-light border-0 shadow-none text-success fw-bold" th:value="${produto != null ? produto.preco : ''}" required>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <label for="categoria" class="form-label fw-medium text-dark">Categoria</label>
+                        <select name="categoriaId" id="categoria" class="form-select form-select-lg bg-light border-0 shadow-none">
+                            <option th:each="cat : ${categorias}" 
+                                    th:value="${cat.idcategoria}" 
+                                    th:selected="${produto != null and produto.categoria != null and produto.categoria.idcategoria == cat.idcategoria}"
+                                    th:text="${cat.nome}"></option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="mb-5">
+                    <label for="foto" class="form-label fw-medium text-dark">Imagem do Produto <span class="badge bg-secondary ms-2" style="font-size: 0.7em;">Opcional</span></label>
+                    <input type="file" name="fotoFile" id="foto" class="form-control form-control-lg bg-light border-0 shadow-none">
+                    <input type="hidden" name="name_foto" th:value="${produto != null and produto.foto != null ? produto.foto : 'semfoto.png'}">
+                    <div class="form-text mt-2 text-muted">A imagem nova substituirá a atual na vitrine pública.</div>
+                </div>
+                
+                <input type="hidden" name="idproduto" th:value="${produto != null ? produto.idproduto : ''}">
+                <div class="d-flex justify-content-end border-top pt-4">
+                    <button type="submit" class="btn btn-indigo btn-lg px-5 shadow-sm rounded-pill">Salvar Produto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div th:replace="~{template_rodape :: rodape}"></div>
+</body>
+</html>
